@@ -3,7 +3,15 @@ import java.util.ArrayList;
 public class Order {
   private ArrayList<Pizza> order = new ArrayList<>();
   private String time;
+  private String name;
 
+
+
+
+  Order(String name) {
+    this.name = name;
+
+  }
   public void addPizzaToOrder(Pizza pizza){
     if(pizza != null){
     order.add(pizza);

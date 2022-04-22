@@ -44,11 +44,15 @@ public class UI {
         System.out.println("See order list");
       }
       case 3 -> {
-        Order order = new Order();
         boolean isRunning = true;
         String newOrder;
 
         while (isRunning) {
+          String orderName;
+          System.out.println("What is the name of your order?");
+          input.nextLine(); //Scannerbug
+          orderName = input.nextLine();
+          Order order = new Order(orderName);
           System.out.println("How many pizzas would you like to order?");
           // input order
           //How many pizzas
@@ -56,8 +60,9 @@ public class UI {
           int orderAmount;
           orderAmount = input.nextInt();
           for (int i = 0; i < orderAmount; i++) {
+            int pizzaNumber;
             System.out.println("choose pizza number");
-            int pizzaNumber = 2;
+            pizzaNumber = input.nextInt();
             Pizza check;
             check = menucard.checkMenuCard(pizzaNumber);
 
@@ -66,12 +71,15 @@ public class UI {
             } else {
               System.out.println("Please pick a valid pizza");
             }
-            System.out.println("How many" + check.getName() + "s");
-            hawai.setAmount(3);
-            orderAmount = orderAmount - hawai.getAmount();
+            System.out.println("How many " + check.getName() + "s");
+            int pizzaTypeAmount;
+            pizzaTypeAmount = input.nextInt();
+            check.setAmount(pizzaTypeAmount);
+            orderAmount = orderAmount - check.getAmount();
           }
+          System.out.println("");
           System.out.println("Do you want to add another order");
-          input.nextLine();
+          input.nextLine(); //Scannerbug
           newOrder = input.nextLine();
           if (newOrder.equalsIgnoreCase("no")) {
             isRunning = false;
