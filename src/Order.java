@@ -18,6 +18,10 @@ public class Order {
     }
   }
 
+  public ArrayList<Pizza> getOrder() {
+    return order;
+  }
+
   public void setTime(String time) {
     this.time = time;
   }

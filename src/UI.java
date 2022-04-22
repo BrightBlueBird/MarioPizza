@@ -48,6 +48,8 @@ public class UI {
         String newOrder;
 
         while (isRunning) {
+          Payment payment = new Payment();
+          int totalCost = 0;
           String orderName;
           System.out.println("What is the name of your order?");
           input.nextLine(); //Scannerbug
@@ -60,6 +62,7 @@ public class UI {
           int orderAmount;
           orderAmount = input.nextInt();
           for (int i = 0; i < orderAmount; i++) {
+            System.out.println(menucard.printmenucard());
             int pizzaNumber;
             System.out.println("choose pizza number");
             pizzaNumber = input.nextInt();
@@ -76,8 +79,9 @@ public class UI {
             pizzaTypeAmount = input.nextInt();
             check.setAmount(pizzaTypeAmount);
             orderAmount = orderAmount - check.getAmount();
+            totalCost =  totalCost + payment.totalCost(order.getOrder());
           }
-          System.out.println("");
+          System.out.println("Your total cost is " + totalCost + "kr.");
           System.out.println("Do you want to add another order");
           input.nextLine(); //Scannerbug
           newOrder = input.nextLine();
