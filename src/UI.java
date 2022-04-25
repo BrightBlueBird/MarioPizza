@@ -1,12 +1,14 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class UI {
 
-  Scanner input = new Scanner(System.in);
-  int options;
+  private Scanner input = new Scanner(System.in);
+  private int options;
 
-  menukort menucard = new menukort();
-  OrderList orderList = new OrderList();
+  private menukort menucard = new menukort();
+  private OrderList orderList = new OrderList();
+  private LocalDateTime time;
 
 
   public void intro() {
@@ -18,7 +20,6 @@ public class UI {
     Pizza Dennis = new Pizza("Dennis", 40, 5);
     Pizza Bertil = new Pizza ("Bertil", 57, 6);
     Pizza Silvia = new Pizza ("Silvia", 61, 7);
-
     Pizza Victoria = new Pizza ("Victoria", 61, 8);
     Pizza Toronfo = new Pizza ("Torofo", 61, 9);
     Pizza Capricciosa = new Pizza ("Capricciosa", 61, 10);
@@ -50,11 +51,39 @@ public class UI {
     menucard.addpizza(Caccitore);
     menucard.addpizza(Carbona);
     menucard.addpizza(Dennis);
+    menucard.addpizza(Bertil);
+    menucard.addpizza(Silvia);
+    menucard.addpizza(Victoria);
+    menucard.addpizza(Toronfo);
+    menucard.addpizza(Capricciosa);
+    menucard.addpizza(Hawaii);
+    menucard.addpizza(LeBlissola);
+    menucard.addpizza(Venezia);
+    menucard.addpizza(Mafia);
+    menucard.addpizza(Calzone);
+    menucard.addpizza(Kylling);
+    menucard.addpizza(Salami);
+    menucard.addpizza(Tun);
+    menucard.addpizza(Pepperoni);
+    menucard.addpizza(mamaRosa);
+    menucard.addpizza(Venedig);
+    menucard.addpizza(Italiana);
+    menucard.addpizza(Florinta);
+    menucard.addpizza(potato);
+    menucard.addpizza(Sara);
+    menucard.addpizza(MamaMia);
+    menucard.addpizza(MarcoPolo);
+    menucard.addpizza(Pesot);
+    menucard.addpizza(Azteca);
+
+
+
     boolean isRunning = true;
     while (isRunning) {
       System.out.println("""
-           welcome to mario´s pizza we are more than pleased that you chose our store
+           Welcome to Marios Pizza Program
            you have the following  options:
+           
            press 1 to see the menu card 
            press 2 to see the order list 
            press 3 to add pizza to list
@@ -70,6 +99,7 @@ public class UI {
           System.out.println(menucard.printmenucard());
         }
         case 2 -> {
+
           System.out.println(orderList.printOrderList());
         }
         case 3 -> {
@@ -83,7 +113,28 @@ public class UI {
             System.out.println("What is the name of the customer?");
             input.nextLine(); //Scannerbug
             orderName = input.nextLine();
-            Order order = new Order(orderName);
+            System.out.println("Is the customer in house(1) or by phone(2)?");
+            input.nextLine();
+            int answer = input.nextInt();
+            switch(answer) {
+              case 1 -> {
+                System.out.println("Does the customer want to pay immediately");
+                input.nextLine(); //Scannerbug
+                String immediately = input.nextLine();
+                switch (immediately) {
+                  case "yes" -> {
+                    Order order = new Order(orderName, true);
+                  }
+                  case "no" -> {
+                    Order order = new Order(orderName, false);
+                  }
+                }
+              }
+              case 2 -> {
+                Order order = new Order(orderName, false, time);
+              }
+            }
+            Order order = new Order(orderName, false);
             System.out.println("How many pizzas would you like to order?");
             // input order
             //How many pizzas
@@ -111,6 +162,8 @@ public class UI {
               }
             }
             System.out.println("Your total cost is " + totalCost + "kr.");
+            System.out.println("Will the customer pay immediately?");
+
             orderList.addOrderToOrderList(order);
             System.out.println("Do you want to add another order");
             input.nextLine(); //Scannerbug
@@ -128,6 +181,11 @@ public class UI {
           Order check;
           check = orderList.checkOrderExistence(customerName);
           if(check != null) {
+            if(!check.getHasPayed()) {
+              System.out.println("""
+                  The customer hasn't payed yet. Please make sure the customer has payed,
+                  before removing the order.""");
+            }
             orderList.removeOrderFromOrderList(check);
             System.out.println(customerName + "'s order was removed");
           } else {
@@ -135,10 +193,24 @@ public class UI {
           }
         }
         case 5 -> {
-          System.out.println("payment");
+          System.out.println("Which order has been payed?");
+          String customerName;
+          input.nextLine(); // Scannerbug
+          customerName = input.nextLine();
+          Order check;
+          check = orderList.checkOrderExistence(customerName);
+          if(check != null) {
+            if(!check.getHasPayed()) {
+               check.setHasPayed(true);
+            } else{
+              System.out.println("Order has already been payed.");
+            }
+          } else{
+            System.out.println("Error, order was not found.");
+          }
         }
         case 6 -> {
-          System.out.println("Program shuts down goodbye!");
+          System.out.println("Program shuts down, goodbye!");
           isRunning = false;
         }
       }

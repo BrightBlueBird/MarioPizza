@@ -1,8 +1,7 @@
 public class Pizza {
   final private String name;
-  private int price;
-  private int time;
-  private int menuNumber;
+  final private int price;
+  final private int menuNumber;
   private int amount;
 
 
@@ -15,14 +14,6 @@ public class Pizza {
 
   public int getPrice() {
     return price;
-  }
-
-  public void setTime(int time) {
-    this.time = time;
-  }
-
-  public int getTime() {
-    return time;
   }
 
   public int getMenuNumber() {
@@ -44,7 +35,7 @@ public class Pizza {
 
   @Override
   public String toString() {
-    return "\n" + "nr.: " + menuNumber + " " + name + " Price: " + price + amount +"\n";
+    return "\n" + "nr.: " + menuNumber + " " + name + " Price: " + price + "\n";
   }
 
 }

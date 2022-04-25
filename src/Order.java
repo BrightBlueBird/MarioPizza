@@ -1,13 +1,28 @@
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 
 public class Order {
   private Pizza pizza;
   private ArrayList<Pizza> order = new ArrayList<>();
-  private String time;
-  private String name;
+  final private String name;
+  private boolean hasPayed;
+  private LocalDateTime time;
+  private String formattedTime;
 
-  Order(String name) {
+  Order(String name, boolean hasPayed) {
     this.name = name;
+    this.hasPayed = hasPayed;
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
+    this.formattedTime = LocalDateTime.now().format(myFormatObj);
+  }
+
+  Order(String name, boolean hasPayed, LocalDateTime time) {
+    this.name = name;
+    this.hasPayed = hasPayed;
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
+    this.formattedTime = time.format(myFormatObj);
   }
 
   public void addPizzaToOrder(Pizza pizza) {
@@ -16,12 +31,13 @@ public class Order {
     }
   }
 
-  public ArrayList<Pizza> getOrder() {
-    return order;
+  public void timeFormatter() {
+    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
+    this.formattedTime = time.format(myFormatObj);
   }
 
-  public void setTime(String time) {
-    this.time = time;
+  public ArrayList<Pizza> getOrder() {
+    return order;
   }
 
   public String getPizzaName() {
@@ -32,18 +48,27 @@ public class Order {
     return pizza.getAmount();
   }
 
-  public String getTime() {
-    return time;
-  }
-
   public String getOrderName() {
     return name;
+  }
+
+  public void setHasPayed(boolean hasPayed) {
+    this.hasPayed = hasPayed;
+  }
+
+  public boolean getHasPayed() {
+    return hasPayed;
+  }
+
+  public void setTimeStamp(String formattedTime) {
+
+    this.formattedTime = formattedTime;
   }
 
   @Override
   public String toString() {
     return order +
-        ", time='" + time + '\'' +
+        ", time='" + formattedTime + '\'' +
         ", name='" + name + '\'' +
         '}';
   }
