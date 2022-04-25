@@ -11,9 +11,6 @@ public class Pizza {
     this.name = name;
     this.price = price;
     this.menuNumber = menuNumber;
-
-
-
   }
 
   public int getPrice() {
@@ -44,8 +41,10 @@ public class Pizza {
     return amount;
   }
 
+
   @Override
   public String toString() {
-    return "\n" + "nr.: " + menuNumber + " " + name + " Price: " + price + "\n";
+    return "\n" + "nr.: " + menuNumber + " " + name + " Price: " + price + amount +"\n";
   }
+
 }
