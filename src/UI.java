@@ -18,7 +18,6 @@ public class UI {
     Pizza Dennis = new Pizza("Dennis", 40, 5);
     Pizza Bertil = new Pizza ("Bertil", 57, 6);
     Pizza Silvia = new Pizza ("Silvia", 61, 7);
-
     Pizza Victoria = new Pizza ("Victoria", 61, 8);
     Pizza Toronfo = new Pizza ("Torofo", 61, 9);
     Pizza Capricciosa = new Pizza ("Capricciosa", 61, 10);
@@ -50,11 +49,39 @@ public class UI {
     menucard.addpizza(Caccitore);
     menucard.addpizza(Carbona);
     menucard.addpizza(Dennis);
+    menucard.addpizza(Bertil);
+    menucard.addpizza(Silvia);
+    menucard.addpizza(Victoria);
+    menucard.addpizza(Toronfo);
+    menucard.addpizza(Capricciosa);
+    menucard.addpizza(Hawaii);
+    menucard.addpizza(LeBlissola);
+    menucard.addpizza(Venezia);
+    menucard.addpizza(Mafia);
+    menucard.addpizza(Calzone);
+    menucard.addpizza(Kylling);
+    menucard.addpizza(Salami);
+    menucard.addpizza(Tun);
+    menucard.addpizza(Pepperoni);
+    menucard.addpizza(mamaRosa);
+    menucard.addpizza(Venedig);
+    menucard.addpizza(Italiana);
+    menucard.addpizza(Florinta);
+    menucard.addpizza(potato);
+    menucard.addpizza(Sara);
+    menucard.addpizza(MamaMia);
+    menucard.addpizza(MarcoPolo);
+    menucard.addpizza(Pesot);
+    menucard.addpizza(Azteca);
+
+
+
     boolean isRunning = true;
     while (isRunning) {
       System.out.println("""
-           welcome to mario´s pizza we are more than pleased that you chose our store
+           Welcome to Marios Pizza Program
            you have the following  options:
+           
            press 1 to see the menu card 
            press 2 to see the order list 
            press 3 to add pizza to list
@@ -138,7 +165,7 @@ public class UI {
           System.out.println("payment");
         }
         case 6 -> {
-          System.out.println("Program shuts down goodbye!");
+          System.out.println("Program shuts down, goodbye!");
           isRunning = false;
         }
       }
