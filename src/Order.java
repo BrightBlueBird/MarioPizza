@@ -1,28 +1,23 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
 public class Order {
-  private Pizza pizza;
   private ArrayList<Pizza> order = new ArrayList<>();
   final private String name;
   private boolean hasPayed;
   private LocalDateTime time;
   private String formattedTime;
 
+
   Order(String name, boolean hasPayed) {
     this.name = name;
     this.hasPayed = hasPayed;
+    time = LocalDateTime.now();
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
-    this.formattedTime = LocalDateTime.now().format(myFormatObj);
-  }
-
-  Order(String name, boolean hasPayed, LocalDateTime time) {
-    this.name = name;
-    this.hasPayed = hasPayed;
-    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
-    this.formattedTime = time.format(myFormatObj);
+    formattedTime = time.format(myFormatObj);
   }
 
   public void addPizzaToOrder(Pizza pizza) {
@@ -31,21 +26,16 @@ public class Order {
     }
   }
 
-  public void timeFormatter() {
+  public void addAmountOfTime(int hours, int minutes) {
+    LocalDateTime otherTime = time.plus(hours, ChronoUnit.HOURS);
+    LocalDateTime otherOtherTime = otherTime.plus(minutes, ChronoUnit.MINUTES);
     DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
-    this.formattedTime = time.format(myFormatObj);
+    formattedTime = otherOtherTime.format(myFormatObj);
   }
+
 
   public ArrayList<Pizza> getOrder() {
     return order;
-  }
-
-  public String getPizzaName() {
-    return pizza.getName();
-  }
-
-  public int getPizzaAmount() {
-    return pizza.getAmount();
   }
 
   public String getOrderName() {
@@ -58,11 +48,6 @@ public class Order {
 
   public boolean getHasPayed() {
     return hasPayed;
-  }
-
-  public void setTimeStamp(String formattedTime) {
-
-    this.formattedTime = formattedTime;
   }
 
   @Override

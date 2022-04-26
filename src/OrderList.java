@@ -16,9 +16,6 @@ public class OrderList {
     return orderlist;
   }
 
-  public void sortByTimeStamp() {
-  }
-
   public Order checkOrderExistence(String customerName) {
     for (int i = 0; i < orderlist.size(); i++) {
       Order check = orderlist.get(i);

@@ -6,13 +6,9 @@ public class UI {
   private Scanner input = new Scanner(System.in);
   private int options;
 
-  private menukort menucard = new menukort();
   private OrderList orderList = new OrderList();
-  private LocalDateTime time;
 
-
-  public void intro() {
-
+  public menukort createMenuKort() {
     Pizza Vesuvio = new Pizza("Vesuvio", 57, 1);
     Pizza Amerikaner = new Pizza("Amerikaner", 53, 2);
     Pizza Caccitore = new Pizza("Caccitore", 101, 3);
@@ -75,8 +71,9 @@ public class UI {
     menucard.addpizza(MarcoPolo);
     menucard.addpizza(Pesot);
     menucard.addpizza(Azteca);
-
-
+    return menucard;
+  }
+  public void intro() {
 
     boolean isRunning = true;
     while (isRunning) {
@@ -95,11 +92,11 @@ public class UI {
 
       switch (options) {
         case 1 -> {
+          menukort menucard = createMenuKort();
           System.out.println("menu card");
           System.out.println(menucard.printmenucard());
         }
         case 2 -> {
-
           System.out.println(orderList.printOrderList());
         }
         case 3 -> {
@@ -107,8 +104,6 @@ public class UI {
           String newOrder;
 
           while (anotherOrder) {
-            Payment payment = new Payment();
-            int totalCost = 0;
             String orderName;
             System.out.println("What is the name of the customer?");
             input.nextLine(); //Scannerbug
@@ -124,17 +119,29 @@ public class UI {
                 switch (immediately) {
                   case "yes" -> {
                     Order order = new Order(orderName, true);
+                    createOrder(order, createMenuKort());
                   }
                   case "no" -> {
                     Order order = new Order(orderName, false);
+                    createOrder(order, createMenuKort());
                   }
                 }
               }
               case 2 -> {
-                Order order = new Order(orderName, false, time);
+                Order order = new Order(orderName, false);
+                createOrder(order, createMenuKort());
+                System.out.println("""
+                    In how many hours and minutes does the customer want to get the pizza?""");
+                System.out.print("Hours: ");
+                input.nextInt();
+                int hour = input.nextInt();
+                System.out.println("\n Minutes: ");
+                input.nextInt();
+                int minute = input.nextInt();
+                order.addAmountOfTime(hour, minute);
               }
             }
-            Order order = new Order(orderName, false);
+           /* Order order = new Order(orderName, false);
             System.out.println("How many pizzas would you like to order?");
             // input order
             //How many pizzas
@@ -162,9 +169,9 @@ public class UI {
               }
             }
             System.out.println("Your total cost is " + totalCost + "kr.");
-            System.out.println("Will the customer pay immediately?");
-
             orderList.addOrderToOrderList(order);
+
+            */
             System.out.println("Do you want to add another order");
             input.nextLine(); //Scannerbug
             newOrder = input.nextLine();
@@ -215,6 +222,38 @@ public class UI {
         }
       }
     }
+  }
+  public void createOrder(Order order, menukort menucard) {
+    Payment payment = new Payment();
+    int totalCost = 0;
+    System.out.println("How many pizzas would you like to order?");
+    // input order
+    //How many pizzas
+    //Input
+    int orderAmount;
+    orderAmount = input.nextInt();
+    for (int i = 0; i < orderAmount; i++) {
+      System.out.println(menucard.printmenucard());
+      int pizzaNumber;
+      System.out.println("choose pizza number");
+      pizzaNumber = input.nextInt();
+      Pizza check;
+      check = menucard.checkMenuCard(pizzaNumber);
+      if (check != null) {
+        order.addPizzaToOrder(check);
+        System.out.println("How many " + check.getName() + "'s");
+        int pizzaTypeAmount;
+        pizzaTypeAmount = input.nextInt();
+        check.setAmount(pizzaTypeAmount);
+        orderAmount = orderAmount - check.getAmount();
+        totalCost = totalCost + payment.totalCost(order.getOrder());
+      } else {
+        System.out.println("Please pick a valid pizza");
+        orderAmount = ++orderAmount;
+      }
+    }
+    System.out.println("Your total cost is " + totalCost + "kr.");
+    orderList.addOrderToOrderList(order);
   }
 }
 
