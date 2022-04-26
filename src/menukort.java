@@ -7,7 +7,7 @@ public void addpizza(Pizza pizza){
 
   menucard.add(pizza);
 }
-public ArrayList<Pizza> printmenucard (){
+public ArrayList<Pizza> printmenucard(){
   return menucard;
 }
 public Pizza checkMenuCard(int menuNumber) {
